@@ -63,8 +63,14 @@ function getMaxNumber(a, b, c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  if (
+    queen.x === king.x ||
+    queen.y === king.y ||
+    Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)
+  )
+    return true;
+  return false;
 }
 
 /**
@@ -85,10 +91,10 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  // if (a === b || a === c || b === c) return true;
-  // return false;
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if ((a === b || a === c || b === c) && a + b > c && b + c > a && a + c > b)
+    return true;
+  return false;
 }
 
 /**
@@ -208,13 +214,11 @@ function isPalindrome(str) {
  *  'qwerty', 'p'     => -1
  */
 function getIndexOf(str, letter) {
-  let index = -1;
-
   for (let i = 0; i < str.length; i += 1) {
-    if (str[i] === letter) index = i;
+    if (str[i] === letter) return i;
   }
 
-  return index;
+  return -1;
 }
 
 /**
@@ -255,8 +259,17 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  for (let i = 1; i < arr.length; i += 1) {
+    let leftSum = 0;
+    let rightSum = 0;
+    for (let j = 0; j < arr.length; j += 1) {
+      if (j < i) leftSum += arr[j];
+      else if (j > i) rightSum += arr[j];
+    }
+    if (leftSum === rightSum) return i;
+  }
+  return -1;
 }
 
 /**
