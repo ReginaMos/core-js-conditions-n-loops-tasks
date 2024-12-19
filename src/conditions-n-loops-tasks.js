@@ -293,8 +293,67 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const arr = new Array(size);
+  for (let i = 0; i < size; i += 1) {
+    const row = new Array(size);
+    for (let j = 0; j < size; j += 1) {
+      row[j] = 0;
+    }
+    arr[i] = row;
+  }
+
+  let turnFlag = 0;
+  let number = 1;
+  let i = 0;
+  let j = 0;
+  while (number <= size * size) {
+    if (i === size || j === size || arr[i][j] !== 0) {
+      turnFlag = (turnFlag + 1) % 4;
+      switch (turnFlag) {
+        case 0:
+          i += 1;
+          j += 1;
+          break;
+        case 1:
+          j -= 1;
+          i += 1;
+          break;
+        case 2:
+          i -= 1;
+          j -= 1;
+          break;
+        case 3:
+          i -= 1;
+          j += 1;
+          break;
+        default:
+          break;
+      }
+    } else {
+      arr[i][j] = number;
+      number += 1;
+
+      switch (turnFlag) {
+        case 0:
+          j += 1;
+          break;
+        case 1:
+          i += 1;
+          break;
+        case 2:
+          j -= 1;
+          break;
+        case 3:
+          i -= 1;
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  return arr;
 }
 
 /**
@@ -312,8 +371,28 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const arr = matrix;
+
+  for (let i = 0; i < matrix.length; i += 1) {
+    for (let j = 0; j < matrix.length; j += 1) {
+      if (i < j) {
+        const t = arr[i][j];
+        arr[i][j] = arr[j][i];
+        arr[j][i] = t;
+      }
+    }
+  }
+
+  for (let i = 0; i < matrix.length; i += 1) {
+    for (let j = 0; j < matrix.length / 2; j += 1) {
+      const t = arr[i][j];
+      arr[i][j] = arr[i][matrix.length - 1 - j];
+      arr[i][matrix.length - 1 - j] = t;
+    }
+  }
+
+  return arr;
 }
 
 /**
